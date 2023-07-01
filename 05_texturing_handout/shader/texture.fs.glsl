@@ -1,5 +1,6 @@
+#version 300 es
 /**
- * a phong shader implementation with texture support
+ * A phong shader implementation with texture support
  */
 precision mediump float;
 
@@ -26,9 +27,12 @@ struct Light {
 //illumination related variables
 uniform Material u_material;
 uniform Light u_light;
-varying vec3 v_normalVec;
-varying vec3 v_eyeVec;
-varying vec3 v_lightVec;
+in vec3 v_normalVec;
+in vec3 v_eyeVec;
+in vec3 v_lightVec;
+
+//fragColor: output variable for the color of the fragment
+out vec4 fragColor;
 
 //texture related variables
 uniform bool u_enableObjectTexture; //note: boolean flags are a simple but not the best option to handle textured and untextured objects
@@ -50,32 +54,32 @@ vec4 calculateSimplePointLight(Light light, Material material, vec3 lightVec, ve
 	vec3 reflectVec = reflect(-lightVec,normalVec);
 	float spec = pow( max( dot(reflectVec, eyeVec), 0.0) , material.shininess);
 
-  if(u_enableObjectTexture)
-  {
-    //TASK 2: replace diffuse and ambient material color with texture color
+	if(u_enableObjectTexture)
+	{
+		//TASK 2: replace diffuse and ambient material color with texture color
 
 		//Note: an alternative to replacing the material color is to multiply it with the texture color
-  }
+	}
 
 	vec4 c_amb  = clamp(light.ambient * material.ambient, 0.0, 1.0);
 	vec4 c_diff = clamp(diffuse * light.diffuse * material.diffuse, 0.0, 1.0);
 	vec4 c_spec = clamp(spec * light.specular * material.specular, 0.0, 1.0);
 	vec4 c_em   = material.emission;
 
-  return c_amb + c_diff + c_spec + c_em;
+  	return c_amb + c_diff + c_spec + c_em;
 }
 
 void main (void) {
 
-  vec4 textureColor = vec4(0,0,0,1); //requred in TASK 2
-  if(u_enableObjectTexture)
-  {
-    //TASK 2: integrate texture color into phong shader
+	vec4 textureColor = vec4(0,0,0,1); //requred in TASK 2
+	if(u_enableObjectTexture)
+	{
+		//TASK 2: integrate texture color into phong shader
 		//TASK 1: simple texturing: replace vec4(0,0,0,1) with texture lookup
-    gl_FragColor =  vec4(0,0,0,1); //replace me for TASK 1 and remove me for TASK 2!!!
-    return; //remove me for TASK 2
-  }
+		fragColor =  vec4(0,0,0,1); //replace me for TASK 1 and remove me for TASK 2!!!
+		return; //remove me for TASK 2
+	}
 
-	gl_FragColor = calculateSimplePointLight(u_light, u_material, v_lightVec, v_normalVec, v_eyeVec, textureColor);
+	fragColor = calculateSimplePointLight(u_light, u_material, v_lightVec, v_normalVec, v_eyeVec, textureColor);
 
 }

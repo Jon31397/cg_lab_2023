@@ -1,15 +1,16 @@
+#version 300 es
 /**
- * as simple vertex shader setting the 2D position of a vertex without any transformations and forwarding the color
+ * A simple vertex shader setting the 2D position of a vertex without any transformations and forwarding the color
  * Created by Samuel Gratzl on 08.02.2016.
  */
 
-//attributes: per vertex inputs in this case the 2d position and its color
-attribute vec2 a_position;
+//in (attributes): per vertex inputs in this case the 2d position and its color
+in vec2 a_position;
 
-attribute vec4 a_color;
+in vec4 a_color;
 
-//values transfered and interpolated between vertex and fragment shader
-varying vec4 v_color;
+//out (varying): values transfered and interpolated between vertex and fragment shader
+out vec4 v_color;
 
 
 //like a C program main is the main function

@@ -1,8 +1,9 @@
+#version 300 es
 // Phong Vertex Shader
 
-attribute vec3 a_position;
-attribute vec3 a_normal;
-attribute vec2 a_texCoord;
+in vec3 a_position;
+in vec3 a_normal;
+in vec2 a_texCoord;
 
 uniform mat4 u_modelView;
 uniform mat3 u_normalMatrix;
@@ -13,11 +14,11 @@ uniform vec3 u_lightPos;
 uniform mat4 u_eyeToLightMatrix;
 
 //output of this shader
-varying vec3 v_normalVec;
-varying vec3 v_lightVec;
-varying vec3 v_eyeVec;
-varying vec2 v_texCoord;
-varying vec4 v_shadowMapTexCoord;
+out vec3 v_normalVec;
+out vec3 v_lightVec;
+out vec3 v_eyeVec;
+out vec2 v_texCoord;
+out vec4 v_shadowMapTexCoord;
 
 void main() {
 	//compute vertex position in eye space

@@ -1,7 +1,8 @@
+#version 300 es
 /**
  * Created by Samuel Gratzl on 29.02.2016.
  */
-attribute vec3 a_position;
+in vec3 a_position;
 
 uniform mat4 u_modelView;
 uniform mat3 u_normalMatrix;

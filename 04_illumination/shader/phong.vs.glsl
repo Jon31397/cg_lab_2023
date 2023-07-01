@@ -1,9 +1,10 @@
+#version 300 es
 /**
- * a phong shader implementation
+ * A phong shader implementation
  * Created by Samuel Gratzl on 29.02.2016.
  */
-attribute vec3 a_position;
-attribute vec3 a_normal;
+in vec3 a_position;
+in vec3 a_normal;
 
 uniform mat4 u_modelView;
 uniform mat3 u_normalMatrix;
@@ -16,17 +17,17 @@ uniform vec3 u_lightPos;
 uniform vec3 u_light2Pos;
 
 //output of this shader
-varying vec3 v_normalVec;
-varying vec3 v_eyeVec;
-varying vec3 v_lightVec;
-varying vec3 v_light2Vec;
+out vec3 v_normalVec;
+out vec3 v_eyeVec;
+out vec3 v_lightVec;
+out vec3 v_light2Vec;
 
 void main() {
 	vec4 eyePosition = u_modelView * vec4(a_position,1);
 
-  v_normalVec = u_normalMatrix * a_normal;
+  	v_normalVec = u_normalMatrix * a_normal;
 
-  v_eyeVec = -eyePosition.xyz;
+	v_eyeVec = -eyePosition.xyz;
 	//TASK 3-4 light position as uniform
 	v_lightVec = u_lightPos - eyePosition.xyz;
 	//TASK 5-4 second light source position

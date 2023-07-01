@@ -1,5 +1,6 @@
+#version 300 es
 /**
- * a phong shader implementation
+ * A phong shader implementation
  * Created by Samuel Gratzl on 29.02.2016.
  */
 precision mediump float;
@@ -39,11 +40,14 @@ uniform Light u_light;
 //TASK 5-5 use uniform for 2nd light
 uniform Light u_light2;
 
-//varying vectors for light computation
-varying vec3 v_normalVec;
-varying vec3 v_eyeVec;
-varying vec3 v_lightVec;
-varying vec3 v_light2Vec;
+//in (varying) vectors for light computation
+in vec3 v_normalVec;
+in vec3 v_eyeVec;
+in vec3 v_lightVec;
+in vec3 v_light2Vec;
+
+//fragColor: output variable for the color of the fragment
+out vec4 fragColor;
 
 vec4 calculateSimplePointLight(Light light, Material material, vec3 lightVec, vec3 normalVec, vec3 eyeVec) {
 	// You can find all built-in functions (min, max, clamp, reflect, normalize, etc.) 
@@ -53,7 +57,7 @@ vec4 calculateSimplePointLight(Light light, Material material, vec3 lightVec, ve
 	normalVec = normalize(normalVec);
 	eyeVec = normalize(eyeVec);
 
-		//TASK 1-1 implement phong shader
+	//TASK 1-1 implement phong shader
 	//compute diffuse term
 	float diffuse = max(dot(normalVec,lightVec),0.0);
 
@@ -74,7 +78,7 @@ void main() {
 	//TASK 2-3 use material uniform
 	//TASK 3-2 use light uniform
 	//TASK 5-6 use second light source
-	gl_FragColor =
+	fragColor =
 		calculateSimplePointLight(u_light, u_material, v_lightVec, v_normalVec, v_eyeVec)
 		+ calculateSimplePointLight(u_light2, u_material, v_light2Vec, v_normalVec, v_eyeVec);
 

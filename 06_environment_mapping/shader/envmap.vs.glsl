@@ -1,11 +1,12 @@
+#version 300 es
 /**
- * simple environment mapping shader
+ * A simple environment mapping shader
  * Created by Clemens Birklbauer on 08.04.2016.
  */
 
 //attributes: per vertex inputs in this case the 2d position and its color
-attribute vec3 a_position;
-attribute vec3 a_normal;
+in vec3 a_position;
+in vec3 a_normal;
 
 uniform mat4 u_modelView;
 uniform mat3 u_normalMatrix;
@@ -15,8 +16,8 @@ uniform mat4 u_projection;
 uniform mat3 u_invView;
 
 //output variables requried in fragment shader
-varying vec3 v_normalVec;
-varying vec3 v_cameraRayVec;
+out vec3 v_normalVec;
+out vec3 v_cameraRayVec;
 
 void main() {
   //calculate vertex position in eye space (!vertex position in eye space = camera ray in eye space!)
